@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  db:
+    container_name: gokit_todosdb
+    hostname: db
+    image: postgres
+    environment:
+      POSTGRES_USER: go
+      POSTGRES_PASSWORD: go
+      POSTGRES_DB: todos
+
+  app:
+    image: realbucksavage/gokit-todos
+    container_name: gokit_todosapi
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
